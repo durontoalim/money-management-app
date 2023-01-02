@@ -6,12 +6,12 @@ const init = {
     error: null
 }
 
-const authReducer = (state=init, action) =>{
+const authReducer = (state=init, action) => {
     switch(action.type){
         case Types.SET_USER: {
             return {
                 user: action.payload.user,
-                isAuthenticated: Object.keys(action.payload.user).length == 0,
+                isAuthenticated: Object.keys(action.payload.user).length === 0,
                 error: {}
             }
         }
@@ -23,6 +23,6 @@ const authReducer = (state=init, action) =>{
         }
         default: return state
     }
-}
+};
 
 export default authReducer

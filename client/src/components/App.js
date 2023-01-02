@@ -10,13 +10,13 @@ class App extends Component{
   render(){
     return (
       <BrowserRouter>
-      <div className='container'>
+        <div className='container'>
         <Routes>
           <Route path='/' element= {<Home/>} />
           <Route path='/login' element= {<Login/>} />
           <Route path='/register' element= {<Register/>} />
         </Routes>
-      </div>
+        </div>
       </BrowserRouter>
     );
   }

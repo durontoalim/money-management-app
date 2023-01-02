@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {connect} from "react-redux"
+import { register } from "../store/actions/authActions";
+
 
 class Register extends React.Component{
-
-    // name,email,pass,pass confirm
     state = {
         name: '',
         email: '',
@@ -12,81 +13,117 @@ class Register extends React.Component{
         error:{}
     }
 
+    static applyDerivedStateFromProps(nextProps, prevState){
+        if(JSON.stringify(nextProps.auth.error) !== JSON.stringify(prevState.error)) {
+            return {
+                error: nextProps.auth.error
+            }
+        }
+        return null;
+    }
+
     changeHandler = event => {
         this.setState({
             [event.target.name]: event.target.value
-        })
-    }
+        });
+    };
+
+
     submitHandler = event => {
-        event.preventDefault()
-    }
+        event.preventDefault();
+        let {name, email, password, confirmPassword} = this.state
+        this.props.register(
+            {name, email, password, confirmPassword},
+            this.props.history
+        );
+    };
 
     render(){
-        let {name,email,password,confirmPassword,error} = this.state
+        let { name,email,password,confirmPassword,error } = this.state
         return(
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
+            <div className="row">
+                <div className="col-md-6 offset-md-3">
                     <h1 className="text-center display-4">Register Here</h1>
-                    <form onsubmit = {this.submitHandler}>
+                    <form onSubmit = {this.submitHandler}>
                         
                         <div className="form-group">
                             <label htmlFor="name">Name: </label>
                             <input
                                 type="text"
-                                className="form-control"
+                                className={error.name ?'form-control is-invalid':'form-control'}
                                 placeholder="Enter Your Name"
                                 name = 'name'
                                 id='name'
                                 value={name}
                                 onChange = {this.changeHandler}
                             />
+                            {error.name && (
+                                <div className="invalid-feedback">
+                                    {error.name}
+                                </div>
+                            )}
+
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="email">Email: </label>
                             <input
                                 type="email"
-                                className="form-control"
+                                className={error.email ?'form-control is-invalid':'form-control'}
                                 placeholder="Enter Your Email"
                                 name = 'email'
                                 id='email'
                                 value={email}
                                 onChange = {this.changeHandler}
                             />
+                            {error.email && (
+                                <div className="invalid-feedback">
+                                    {error.email}
+                                </div>
+                            )}
+                            
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="password">Password: </label>
                             <input
                                 type="password"
-                                className="form-control"
+                                className={error.password ?'form-control is-invalid':'form-control'}
                                 placeholder="Enter Your Password"
                                 name = 'password'
                                 id='password'
                                 value={password}
                                 onChange = {this.changeHandler}
                             />
+                            {error.password && (
+                                <div className="invalid-feedback">
+                                    {error.password}
+                                </div>
+                            )}
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="confirmPassword">confirmPassword: </label>
                             <input
                                 type="confirmPassword"
-                                className="form-control"
+                                className={error.confirmPassword ?'form-control is-invalid':'form-control'}
                                 placeholder="Enter Your confirmPassword"
                                 name = 'confirmPassword'
                                 id='confirmPassword'
                                 value={confirmPassword}
                                 onChange = {this.changeHandler}
                             />
+                            {error.confirmPassword && (
+                                <div className="invalid-feedback">
+                                    {error.confirmPassword}
+                                </div>
+                            )}
                         </div>
                         <div className="mt-3">
                             <Link to='/login'>Already Have account? Log in Here</Link>
                         </div>
                         
                         <button className="mt-4 px-5 btn btn-primary">Sign Up</button>
-
-
                     </form>
                 </div> 
             </div>
@@ -94,5 +131,11 @@ class Register extends React.Component{
     }
 }
 
+const mapStateToProps = state => ({
+    auth: state.auth
+});
 
-export default Register
+export default connect(
+    mapStateToProps,
+    {register}
+)(Register);
