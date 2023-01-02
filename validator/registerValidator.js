@@ -30,7 +30,7 @@ const validate = user => {
 
     return{
         error,
-        isValid: Object.keys(error).length == 0
+        isValid: Object.keys(error).length === 0
     }
 }
 

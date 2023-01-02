@@ -10,7 +10,7 @@ const app = express()
 
 app.use(morgan('dev')) // used morgan
 app.use(cors())  //used cors
-app.use(bodyParser.urlencoded({ extended:false })) //used body parser
+app.use(bodyParser.urlencoded({ extended: false})) //used body parser
 app.use(bodyParser.json())
 
 

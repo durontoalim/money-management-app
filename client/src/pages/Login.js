@@ -39,44 +39,54 @@ class Login extends React.Component{
     render(){
         let {email,password,error} = this.state
         return(
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
+            <div className="row">
+                <div className="col-md-6 offset-md-3">
                     <h1 className="text-center display-4">Login Here</h1>
-                    <form onsubmit = {this.submitHandler}>
+                    <form onSubmit = {this.submitHandler}>
                         
 
                         <div className="form-group">
                             <label htmlFor="email">Email: </label>
                             <input
                                 type="email"
-                                className="form-control"
+                                className={error.email ?'form-control is-invalid':'form-control'}
                                 placeholder="Enter Your Email"
                                 name = 'email'
                                 id='email'
                                 value={email}
                                 onChange = {this.changeHandler}
                             />
+                            {error.email && (
+                                <div className="invalid-feedback">
+                                    {error.email}
+                                </div>
+                            )}
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="password">Password: </label>
                             <input
                                 type="password"
-                                className="form-control"
+                                className={error.password ?'form-control is-invalid':'form-control'}
                                 placeholder="Enter Your Password"
                                 name = 'password'
                                 id='password'
                                 value={password}
                                 onChange = {this.changeHandler}
                             />
+
+                            {error.password && (
+                                <div className="invalid-feedback">
+                                    {error.password}
+                                </div>
+                            )}
+
                         </div>
                         <div className="mt-3">
                             <Link to='/register'>Don't Have account? Registration Here</Link>
                         </div>
                         
                         <button className="mt-4 px-5 btn btn-primary">Log In</button>
-
-
                     </form>
                 </div> 
             </div>
