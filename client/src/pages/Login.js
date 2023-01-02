@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { login } from "../store/actions/authActions";
+
+
 
 class Login extends React.Component{
-
     // name,email,pass,pass confirm
     state = {
         email: '',
@@ -10,13 +13,27 @@ class Login extends React.Component{
         error:{}
     }
 
+    static applyDerivedStateFromProps(nextProps, prevState){
+        if(JSON.stringify(nextProps.auth.error) !== JSON.stringify(prevState.error)) {
+            return {
+                error: nextProps.auth.error
+            }
+        }
+        return null;
+    }
+
     changeHandler = event => {
         this.setState({
             [event.target.name]: event.target.value
         })
     }
+
     submitHandler = event => {
         event.preventDefault()
+        this.props.login({
+            email: this.state.email,
+            password: this.state.password
+        },this.props.history)
     }
 
     render(){
@@ -68,4 +85,7 @@ class Login extends React.Component{
 }
 
 
-export default Login
+const mapStateToProps = state => ({
+    auth: state.auth
+})
+export default connect(mapStateToProps,{login})(Login)

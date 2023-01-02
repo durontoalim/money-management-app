@@ -26,3 +26,22 @@ export const register = (user,history) => dispatch =>{
             })
         })
 }
+
+export const login = (user,history) =>dispatch =>{
+    Axios.post('/api/users/login', user)
+        .then(data => {
+            //decode our taken
+            //save our token to local strorage
+            //set Auth Header
+            //Dispatch SET User
+        })
+        .catch(error => {
+            console.log(error.res.data);
+            dispatch({
+                type: Types.USERS_ERROR,
+                payload: {
+                    error: error.response.data
+                }
+            })
+        })
+}
