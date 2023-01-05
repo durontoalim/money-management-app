@@ -2,8 +2,8 @@ import * as Types from '../actions/types'
 
 const init = {
     isAuthenticated: false,
-    user: null,
-    error: null
+    user: {},
+    error: {}
 }
 
 const authReducer = (state=init, action) => {
