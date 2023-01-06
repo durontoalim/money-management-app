@@ -4,7 +4,6 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 
-const userRouter = require("./routers/userRoute")
 
 const app = express()
 
@@ -16,7 +15,7 @@ app.use(bodyParser.json())
 
 //UserRouter
 app.use('/api/users',userRouter)
-
+app.use('/api/transactions', require('./routers/transactionRoute'))
 
 app.get('/', (req,res) => {
     res.json({
