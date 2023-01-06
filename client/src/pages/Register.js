@@ -6,14 +6,14 @@ import { register } from "../store/actions/authActions";
 
 class Register extends React.Component{
     state = {
-        name: '',
-        email: '',
-        password:'',
-        confirmPassword:'',
+        name: "",
+        email: "",
+        password:"",
+        confirmPassword:"",
         error:{}
     }
 
-    static applyDerivedStateFromProps(nextProps, prevState){
+    static getDerivedStateFromProps(nextProps, prevState){
         if(JSON.stringify(nextProps.auth.error) !== JSON.stringify(prevState.error)) {
             return {
                 error: nextProps.auth.error
@@ -32,10 +32,7 @@ class Register extends React.Component{
     submitHandler = event => {
         event.preventDefault();
         let {name, email, password, confirmPassword} = this.state
-        this.props.register(
-            {name, email, password, confirmPassword},
-            this.props.history
-        );
+        this.props.register({name, email, password, confirmPassword}, this.props.history)
     };
 
     render(){

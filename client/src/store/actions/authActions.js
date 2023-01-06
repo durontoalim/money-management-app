@@ -6,7 +6,7 @@ import setAuthToken from '../../utils/setAuthToken'
 
 export const register = (user,history) => dispatch =>{
     Axios.post('/api/users/register', user)
-        .then(res => {
+        .then((res) => {
             dispatch({
                 type: Types.USERS_ERROR,
                 payload: {
@@ -18,6 +18,7 @@ export const register = (user,history) => dispatch =>{
             history.push('/login');
         })
         .catch(error => {
+            
             dispatch({
                 type: Types.USERS_ERROR,
                 payload: {
@@ -49,7 +50,7 @@ export const login = (user,history) =>dispatch =>{
             //Dispatch SET User
         })
         .catch(error => {
-            console.log(error.res.data);
+            console.log(error.response.data);
             dispatch({
                 type: Types.USERS_ERROR,
                 payload: {

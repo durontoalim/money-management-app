@@ -13,7 +13,7 @@ class Login extends React.Component{
         error:{}
     }
 
-    static applyDerivedStateFromProps(nextProps, prevState){
+    static getDerivedStateFromProps(nextProps, prevState){
         if(JSON.stringify(nextProps.auth.error) !== JSON.stringify(prevState.error)) {
             return {
                 error: nextProps.auth.error
