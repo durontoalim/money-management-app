@@ -1,4 +1,5 @@
 {
+  "homepage": "https://github.com/durontoalim/money-management-app",
   "name": "money-management-app",
   "version": "1.0.0",
   "description": "",
@@ -7,13 +8,16 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\" "
+    "dev": "concurrently \"npm run server\" \"npm run client\" ",
+    "predeploy": "npm run build",
+    "deploy":"gh-pages -d build"
   },
   "keywords": [],
   "author": "Abdul Alim",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^7.6.0",
+    "gh-pages": "^5.0.0",
     "nodemon": "^2.0.20",
     "react-devtools": "^4.27.1"
   },

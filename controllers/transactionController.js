@@ -39,7 +39,8 @@ module.exports = {
             .catch(error => serverError(res, error))
     },
     getAll(req,res){
-        Transaction.find()
+        let {_id} = req.user
+        Transaction.find({author: _id})
             .then(transactions => {
                 if(transactions.length === 0){
                     res.status(200).json({
@@ -69,11 +70,12 @@ module.exports = {
     },
     update(req,res){
         let { transactionId } = req.params
-        User.findByIdAndUpdate(transactionId, {$set: req.body })
+        Transaction.findByIdAndUpdate( {_id: transactionId}, {$set: req.body }, {new: true})
             .then(result => {
                 res.status(200).json({
                     message: 'Updated Sucessfully',
-                    ...result
+                    // ...result._doc
+                    transaction: result
                 })
             })
             .catch(error => serverError(res, error))
@@ -85,7 +87,7 @@ module.exports = {
             .then(result => {
                 res.status(200).json({
                     message: 'Delected Sucessfully',
-                    ...result
+                    ...result._doc
                 })
             })
             .catch(error => serverError(res, error))
